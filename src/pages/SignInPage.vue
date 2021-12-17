@@ -1,5 +1,36 @@
-<script setup>
-    import HeaderInfo from '../components/HeaderInfo.vue'
+<script>
+import HeaderInfo from '../components/HeaderInfo.vue'
+    import useVuelidate from '@vuelidate/core'
+    import { required, email, minLength } from '@vuelidate/validators'
+
+    export default {
+        name: "SignIn",
+        components: {
+            HeaderInfo
+        },
+        setup() {
+            return { v$: useVuelidate() };
+        },
+        data() {
+            return {
+                email: '',
+                password: ''
+            };
+        },
+        validations() {
+            return {
+                email: { required, email },
+                password: { required, minLength: minLength(7) }
+            };
+        },
+        methods: {
+            signUp() {
+            this.v$.$touch();
+            if (this.v$.$error) alert('Please fill in all fields with valid data')
+            else alert("Login successful");
+            },
+        },
+    }
 </script>
 
 <template>
@@ -11,14 +42,14 @@
                 <form class="mt-7 space-y-5 mb-5">
                     <div>
                         <label class="block mb-1 font-sans text-sm text-gray-special">Email Address</label>
-                        <input class="w-full border border-gray-special/50 rounded p-2" type="text">
+                        <input class="w-full border border-gray-special/50 rounded p-2" type="text" v-model="v$.email.$model">
                     </div>
                     <div>
                         <label class="block mb-1 font-sans text-sm text-gray-special">Password</label>
-                        <input class="w-full border border-gray-special/50 rounded p-2 mb-2" type="password">
+                        <input class="w-full border border-gray-special/50 rounded p-2 mb-2" type="password" v-model="v$.password.$model">
                         <p class="text-sm text-black text-right">Forgot Password?</p>
                     </div>
-                    <button class="block w-full bg-gray-special rounded p-3 font-sans text-sm text-gray-200">Sign In</button>
+                    <button type="button" class="block w-full bg-gray-special rounded p-3 font-sans text-sm text-gray-200">Sign In</button>
                 </form>
                 <div class="flex justify-center items-center space-x-2 mt-2">
                     <div class="w-14 h-px bg-gray-special"></div>
@@ -33,7 +64,7 @@
                         <img src="src/assets/linkedin_logo.svg" class="object-cover w-full h-full" alt="linkedin logo" />
                     </div>
                 </div>
-                <p class="font-sans text-sm text-gray-special text-center">Don't have an account? <span class="text-black font-sans text-sm font-bold">Sign Up</span></p>
+                <p class="font-sans text-sm text-gray-special text-center">Don't have an account? <a class="text-black font-sans text-sm font-bold" href="/signup">Sign Up</a></p>
             </div>
         </div>
 </template>

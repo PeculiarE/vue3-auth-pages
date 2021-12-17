@@ -1,5 +1,42 @@
-<script setup>
+<script>
     import HeaderInfo from '../components/HeaderInfo.vue'
+    import useVuelidate from '@vuelidate/core'
+    import { required, email, minLength } from '@vuelidate/validators'
+
+    export default {
+        name: "SignUpPage",
+        components: {
+            HeaderInfo
+        },
+        setup() {
+            return { v$: useVuelidate() };
+        },
+        data() {
+            return {
+                name: '',
+                email: '',
+                password: ''
+            };
+        },
+        validations() {
+            return {
+                name: { required, minLength: minLength(2) },
+                email: { required, email },
+                password: { required, minLength: minLength(7) }
+            };
+        },
+        methods: {
+            signUp() {
+            this.v$.$touch();
+            if (this.v$.$error) alert('Please fill in all fields with valid data')
+            else {
+                alert("Sign up successful");
+                this.$router.push({ name: 'SignInPage' });
+                };
+            },
+        },
+    }
+
 </script>
 
 <template>
@@ -12,19 +49,20 @@
                 <form class="mt-7 space-y-5 mb-5">
                     <div>
                         <label class="block mb-1 font-sans text-sm text-gray-special">Company Name</label>
-                        <input class=" w-full border border-gray-special/50 rounded p-2" type="text">
+                        <input class=" w-full border border-gray-special/50 rounded p-2" type="text" v-model="v$.name.$model">
                     </div>
                     <div>
                         <label class="block mb-1 font-sans text-sm text-gray-special">Email Address</label>
-                        <input class=" w-full border border-gray-special/50 rounded p-2" type="text">
+                        <input class=" w-full border border-gray-special/50 rounded p-2" type="text" v-model="v$.email.$model">
                     </div>
                     <div>
                         <label class="block mb-1 font-sans text-sm text-gray-special">Password</label>
-                        <input class=" w-full border border-gray-special/50 rounded p-2" type="password">
+                        <input class=" w-full border border-gray-special/50 rounded p-2" type="password" v-model="v$.password.$model">
                     </div>
-                    <button class="block w-full bg-gray-special rounded p-3 font-sans text-sm text-gray-200">Sign Up</button>
+                    <button type="button" class="block w-full bg-gray-special rounded p-3 font-sans text-sm text-gray-200"
+                    @click="signUp">Sign Up</button>
                 </form>
-                <p class="font-sans text-sm text-gray-special text-center">Already have an account? <span class="text-black font-sans text-sm font-bold">Sign In</span></p>
+                <p class="font-sans text-sm text-gray-special text-center">Already have an account? <a class="text-black font-sans text-sm font-bold" href="/signin">Sign In</a></p>
             </div>
             <p class="text-white text-sm font-sans text-center">By registering you agree with the <span class="font-bold underline">Origins Terms of Use</span></p>
         </div>

@@ -15,7 +15,7 @@ const routes = [
     path: '/signin',
     name: 'SignInPage',
     component: () => import('../pages/SignInPage.vue'),
-  },
+  }
 ];
 
 const router = createRouter({
@@ -23,4 +23,13 @@ const router = createRouter({
   routes,
 });
 
+router.beforeEach((to, from, next) => {
+  const publicPages = ['/signup', '/signin'];
+  if (!publicPages.includes(to.path)) {
+    return next('/signin');
+  }
+  next();
+})
+
 export default router;
+

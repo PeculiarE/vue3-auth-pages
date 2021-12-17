@@ -26,7 +26,7 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const publicPages = ['/signup', '/signin'];
   if (!publicPages.includes(to.path)) {
-    return next('/signin');
+    return next('/signup');
   }
   next();
 })

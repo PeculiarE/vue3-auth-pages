@@ -58,10 +58,10 @@ import HeaderInfo from '../components/HeaderInfo.vue'
                 </div>
                 <div class="flex justify-center space-x-8 mt-3 mb-5">
                     <div class="w-11 h-11">
-                        <img src="src/assets/gmail_logo.svg" class="object-cover w-full h-full" alt="gmail logo" />
+                        <img src="/src/assets/gmail_logo.svg" class="object-cover w-full h-full" alt="gmail logo" />
                     </div>
                     <div class="w-11 h-11">
-                        <img src="src/assets/linkedin_logo.svg" class="object-cover w-full h-full" alt="linkedin logo" />
+                        <img src="/src/assets/linkedin_logo.svg" class="object-cover w-full h-full" alt="linkedin logo" />
                     </div>
                 </div>
                 <p class="font-sans text-sm text-gray-special text-center">Don't have an account? <a class="text-black font-sans text-sm font-bold" href="/signup">Sign Up</a></p>

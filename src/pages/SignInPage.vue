@@ -24,7 +24,7 @@ import HeaderInfo from '../components/HeaderInfo.vue'
             };
         },
         methods: {
-            signUp() {
+            signIn() {
             this.v$.$touch();
             if (this.v$.$error) alert('Please fill in all fields with valid data')
             else alert("Login successful");
@@ -49,7 +49,7 @@ import HeaderInfo from '../components/HeaderInfo.vue'
                         <input class="w-full border border-gray-special/50 rounded p-2 mb-2" type="password" v-model="v$.password.$model">
                         <p class="text-sm text-black text-right">Forgot Password?</p>
                     </div>
-                    <button type="button" class="block w-full bg-gray-special rounded p-3 font-sans text-sm text-gray-200">Sign In</button>
+                    <button @click="signIn" type="button" class="block w-full bg-gray-special rounded p-3 font-sans text-sm text-gray-200">Sign In</button>
                 </form>
                 <div class="flex justify-center items-center space-x-2 mt-2">
                     <div class="w-14 h-px bg-gray-special"></div>
